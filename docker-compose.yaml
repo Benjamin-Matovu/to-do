@@ -1,0 +1,27 @@
+version: "3"
+services:
+  to-do-app:
+    container_name: to-do-app
+    ports:
+      - "3000:3000"
+    image: to-do-image:v1
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    container_name: postgres
+    image: postgres:15-alpine
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: devops123
+      POSTGRES_DB: todos_db
+
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+
+volumes:
+  postgres-volume:
+    
